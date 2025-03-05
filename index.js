@@ -11,6 +11,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+    res.send("🚀 AI Search Tool Backend is running!");
+});
+
 
 // Routes
 app.use("/api/search", searchRoutes);
