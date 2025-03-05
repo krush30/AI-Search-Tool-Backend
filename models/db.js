@@ -1,9 +1,13 @@
 const { drizzle } = require("drizzle-orm/node-postgres");
 const { Pool } = require("pg");
 require("dotenv").config();
-// Create a PostgreSQL connection pool
+
+// Check if SSL is required (Render sometimes doesn't need it)
+const isSSLRequired = process.env.DATABASE_URL.includes("render.com");
+
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL, // Ensure this is set in your .env file
+    connectionString: process.env.DATABASE_URL,
+    ssl: isSSLRequired ? { rejectUnauthorized: false } : false,
 });
 
 // Initialize Drizzle ORM with PostgreSQL
